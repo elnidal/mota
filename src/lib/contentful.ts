@@ -1,8 +1,9 @@
 import { createClient } from 'contentful';
+import { Document } from '@contentful/rich-text-types';
 
 export const client = createClient({
-  space: 'uht1e3ba21ir',
-  accessToken: 'icJW5fz6x8wmEEQ2ORr8BWYjfLgD9hXzUnLy34A-3W8',
+  space: process.env.CONTENTFUL_SPACE_ID || 'uht1e3ba21ir',
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || 'icJW5fz6x8wmEEQ2ORr8BWYjfL',
 });
 
 export const CATEGORIES = [
@@ -17,27 +18,25 @@ export const CATEGORIES = [
 
 export type Category = typeof CATEGORIES[number];
 
+interface ContentfulFile {
+  fields: {
+    file: {
+      url: string;
+    };
+  };
+}
+
 export interface BlogPost {
   sys: {
     id: string;
+    createdAt: string;
+    updatedAt: string;
   };
   fields: {
     title: string;
     category: Category;
-    content: any;
-    images?: {
-      fields: {
-        file: {
-          url: string;
-        };
-      };
-    }[];
-    video?: {
-      fields: {
-        file: {
-          url: string;
-        };
-      };
-    }[];
+    content: Document;
+    images?: ContentfulFile[];
+    video?: ContentfulFile[];
   };
 }
