@@ -1,18 +1,12 @@
 import type { Metadata } from 'next'
-import { Montserrat } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
 
-const montserrat = Montserrat({ 
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  display: 'swap',
-})
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'HepsiHikaye - Kafamızda Çok Kuruyoruz',
-  description: 'Öykü, Roman, Şiir, Deneme, Makale ve daha fazlası...',
+  title: 'HepsiHikaye',
+  description: 'Hikayeler Burada',
 }
 
 export default function RootLayout({
@@ -22,14 +16,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr">
-      <body className={montserrat.className}>
-        <div className="min-h-screen flex flex-col">
-          <Navigation />
-          <main className="flex-grow bg-[#f5f5f5]">
-            {children}
-          </main>
-          <Footer />
-        </div>
+      <body className={inter.className}>
+        <header className="bg-white shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <h1 className="text-2xl font-bold text-gray-900">HepsiHikaye</h1>
+          </div>
+        </header>
+        {children}
       </body>
     </html>
   )
