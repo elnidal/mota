@@ -30,6 +30,19 @@ const getCategoryFromSlug = (slug: string) => {
   );
 };
 
+function getCategoryFromSlugNew(slug: string): string | undefined {
+  return CATEGORIES.find(
+    (category) => category.toLowerCase() === decodeURIComponent(slug).toLowerCase()
+  );
+}
+
+export async function generateStaticParams() {
+  // Generate static paths for all categories
+  return CATEGORIES.map((category) => ({
+    slug: createSlug(category),
+  }));
+}
+
 export default async function CategoryPage({ params, searchParams }: Props) {
   const { slug } = params;
   const { search } = searchParams;

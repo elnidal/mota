@@ -21,6 +21,19 @@ const options = {
   },
 };
 
+export async function generateStaticParams() {
+  // Fetch all posts
+  const response = await client.getEntries<BlogPost>({
+    content_type: 'blogPost',
+    limit: 1000, // Adjust this number based on your needs
+  });
+
+  // Generate paths for all posts
+  return response.items.map((post) => ({
+    id: post.sys.id,
+  }));
+}
+
 export default async function PostPage({ params }: { params: { id: string } }) {
   const { id } = params;
 
