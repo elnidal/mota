@@ -1,8 +1,8 @@
 import { createClient } from 'contentful';
 
 export const client = createClient({
-  space: 'uht1e3ba21ir',
-  accessToken: 'icJW5fz6x8wmEEQ2ORr8BWYjfLgD9hXzUnLy34A-3W8',
+  space: process.env.CONTENTFUL_SPACE_ID!,
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
 });
 
 export const CATEGORIES = [
