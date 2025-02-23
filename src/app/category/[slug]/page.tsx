@@ -68,7 +68,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         <div className="flex justify-center mt-12">
           <div className="grid gap-12 grid-cols-1 md:grid-cols-2 max-w-7xl w-full px-4">
             {posts.map((post) => (
-              <PostCard key={post.sys.id} post={post as any} />
+              <PostCard key={post.sys.id} post={post} />
             ))}
           </div>
         </div>

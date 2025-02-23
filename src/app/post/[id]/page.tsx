@@ -1,21 +1,21 @@
 import { client, BlogPost } from '@/lib/contentful';
 import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { BLOCKS, MARKS } from '@contentful/rich-text-types';
+import { BLOCKS, MARKS, Block, Inline } from '@contentful/rich-text-types';
 
 const options = {
   renderMark: {
     [MARKS.BOLD]: (text: React.ReactNode) => <span className="font-semibold">{text}</span>,
   },
   renderNode: {
-    [BLOCKS.PARAGRAPH]: (node: any, children: React.ReactNode) => (
-      <p className="mb-4 text-gray-700 font-light leading-relaxed">{children}</p>
+    [BLOCKS.PARAGRAPH]: (node: Block | Inline, children: React.ReactNode) => (
+      <p className="mb-4 text-gray-700 leading-relaxed">{children}</p>
     ),
-    [BLOCKS.HEADING_1]: (node: any, children: React.ReactNode) => (
-      <h1 className="text-4xl font-light text-gray-900 mb-6">{children}</h1>
+    [BLOCKS.HEADING_1]: (node: Block | Inline, children: React.ReactNode) => (
+      <h1 className="text-3xl font-bold mb-4">{children}</h1>
     ),
-    [BLOCKS.HEADING_2]: (node: any, children: React.ReactNode) => (
-      <h2 className="text-3xl font-light text-gray-800 mb-4">{children}</h2>
+    [BLOCKS.HEADING_2]: (node: Block | Inline, children: React.ReactNode) => (
+      <h2 className="text-2xl font-semibold mb-3">{children}</h2>
     ),
   },
 };

@@ -1,4 +1,5 @@
 import { createClient } from 'contentful';
+import { Document } from '@contentful/rich-text-types';
 
 export const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID!,
@@ -20,24 +21,20 @@ export type Category = typeof CATEGORIES[number];
 export interface BlogPost {
   sys: {
     id: string;
+    createdAt: string;
   };
   fields: {
     title: string;
+    slug: string;
+    content: Document;
+    excerpt: string;
     category: Category;
-    content: any;
-    images?: {
+    featuredImage?: {
       fields: {
         file: {
           url: string;
         };
       };
-    }[];
-    video?: {
-      fields: {
-        file: {
-          url: string;
-        };
-      };
-    }[];
+    };
   };
 }

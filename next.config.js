@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone', // Ensures compatibility with Cloudflare Pages
+  output: 'export', // Required for Cloudflare Pages
   images: {
-    unoptimized: true, // Required for Cloudflare Pages
+    unoptimized: true, // Cloudflare does not support Next.js Image Optimization
     domains: ['images.ctfassets.net'], // For Contentful images
   }
 };
