@@ -8,29 +8,8 @@ interface Props {
   searchParams: { search?: string };
 }
 
-// Function to create slug from category name (same as in Navigation)
-const createSlug = (category: string) => {
-  return category
-    .toLowerCase()
-    .replace(/ü/g, 'u')
-    .replace(/ö/g, 'o')
-    .replace(/ı/g, 'i')
-    .replace(/ş/g, 's')
-    .replace(/ğ/g, 'g')
-    .replace(/ç/g, 'c')
-    .replace(/[^a-z0-9]/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-};
-
 // Function to get category from slug
-const getCategoryFromSlug = (slug: string) => {
-  return CATEGORIES.find(
-    category => createSlug(category) === slug
-  );
-};
-
-function getCategoryFromSlugNew(slug: string): string | undefined {
+function getCategoryFromSlug(slug: string): string | undefined {
   return CATEGORIES.find(
     (category) => category.toLowerCase() === decodeURIComponent(slug).toLowerCase()
   );
@@ -39,7 +18,7 @@ function getCategoryFromSlugNew(slug: string): string | undefined {
 export async function generateStaticParams() {
   // Generate static paths for all categories
   return CATEGORIES.map((category) => ({
-    slug: createSlug(category),
+    slug: category.toLowerCase(),
   }));
 }
 
