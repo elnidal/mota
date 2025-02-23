@@ -2,6 +2,7 @@ import { client, BlogPost } from '@/lib/contentful';
 import Image from 'next/image';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, MARKS, Block, Inline } from '@contentful/rich-text-types';
+import { Entry } from 'contentful';
 
 const options = {
   renderMark: {
@@ -24,6 +25,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
   const { id } = params;
 
   const response = await client.getEntry<BlogPost>(id);
+  const post: Entry<BlogPost> = response;
 
   if (!response) {
     return (
@@ -34,8 +36,6 @@ export default async function PostPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
-
-  const post = response;
 
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

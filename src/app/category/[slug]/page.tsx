@@ -1,6 +1,7 @@
 import { client, BlogPost, CATEGORIES } from '@/lib/contentful';
 import SearchBar from '@/components/SearchBar';
 import PostCard from '@/components/PostCard';
+import { Entry } from 'contentful';
 
 interface Props {
   params: { slug: string };
@@ -54,7 +55,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     }),
   });
 
-  const posts = response.items;
+  const posts: Entry<BlogPost>[] = response.items;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
