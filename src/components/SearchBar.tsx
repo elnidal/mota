@@ -28,10 +28,12 @@ export default function SearchBar() {
     <div className="w-full max-w-xl mx-auto mb-8">
       <input
         type="text"
-        placeholder="Ara..."
+        placeholder={isPending ? "Aranıyor..." : "Ara..."}
         defaultValue={searchParams.get('search') ?? ''}
         onChange={(e) => handleSearch(e.target.value)}
-        className="w-full px-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:border-[#E85D45] font-light"
+        className={`w-full px-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:border-[#E85D45] font-light ${
+          isPending ? 'bg-gray-100' : 'bg-white'
+        }`}
       />
     </div>
   );
