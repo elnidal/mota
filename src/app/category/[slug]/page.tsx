@@ -2,9 +2,13 @@ import { client, BlogPost, CATEGORIES } from '@/lib/contentful';
 import SearchBar from '@/components/SearchBar';
 import PostCard from '@/components/PostCard';
 
-interface Props {
-  params: { slug: string };
-  searchParams: { search?: string };
+interface CategoryPageProps {
+  params: {
+    slug: string;
+  };
+  searchParams?: {
+    search?: string;
+  };
 }
 
 // Function to create slug from category name (same as in Navigation)
@@ -29,7 +33,7 @@ const getCategoryFromSlug = (slug: string) => {
   );
 };
 
-export default async function CategoryPage({ params, searchParams }: Props) {
+export default async function CategoryPage({ params, searchParams = {} }: CategoryPageProps) {
   const { slug } = params;
   const { search } = searchParams;
 
@@ -49,26 +53,23 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const response = await client.getEntries<BlogPost>({
     content_type: 'blogPost',
     'fields.category': category,
-    ...(search && {
+    ...(search ? {
       'fields.title[match]': search,
-    }),
+    } : {}),
   });
-
-  const posts = response.items;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-3xl font-light text-[#E85D45] mb-8 text-center">
         {category}
       </h1>
-      
       <SearchBar />
       
-      {posts.length > 0 ? (
+      {response.items.length > 0 ? (
         <div className="flex justify-center mt-12">
           <div className="grid gap-12 grid-cols-1 md:grid-cols-2 max-w-7xl w-full px-4">
-            {posts.map((post) => (
-              <PostCard key={post.sys.id} post={post as any} />
+            {response.items.map((post) => (
+              <PostCard key={post.sys.id} post={post} />
             ))}
           </div>
         </div>
